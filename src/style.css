@@ -100,7 +100,7 @@ strong#realFeel {
   font-size: 25px;
   padding: 10px 0px 10px 0px;
 }
-.emojiFirst {
+li#emojiFirst {
   display: block;
   font-size: 130px;
   text-align: center;
