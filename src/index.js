@@ -119,9 +119,8 @@ function showTemperature(response) {
   document.querySelector("#tempMin").innerHTML = `L ${Math.round(
     response.data.main.temp_min
   )}º `;
-  document.querySelector(
-    "#description"
-  ).innerHTML = `${response.data.weather[0].main} |`.toLowerCase();
+  document.querySelector("#description").innerHTML =
+    `${response.data.weather[0].main} |`.toLowerCase();
   document.querySelector("#wind").innerHTML = ` w ${Math.round(
     response.data.wind.speed
   )}km/hr |`;
@@ -133,9 +132,8 @@ function showTemperature(response) {
   ).innerHTML = `real feel like : ${Math.round(
     response.data.main.feels_like
   )}Cº`;
-  document.querySelector(
-    "#emojiFirst"
-  ).innerHTML = `${response.data.weather[0].icon}`;
+  document.querySelector("#emojiFirst").innerHTML =
+    response.data.weather[0].icon;
 }
 
 function searchCity() {
