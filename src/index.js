@@ -107,6 +107,8 @@ function getCurrentHome(event) {
 let buttonCurrentHome = document.querySelector("#currentHome");
 buttonCurrentHome.addEventListener("click", getCurrentHome);
 
+let emojiFirstElement = document.querySelector("#emojiFirst");
+
 function showTemperature(response) {
   document.querySelector("#city").innerHTML =
     `${response.data.name}` + dayHour(now);
@@ -132,10 +134,15 @@ function showTemperature(response) {
   ).innerHTML = `real feel like : ${Math.round(
     response.data.main.feels_like
   )}Cº`;
-  document.querySelector("#emojiFirst").innerHTML =
-    response.data.weather[0].icon;
+  emojiFirstElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  emojiFirstElement.setAttribute("alt", response.data.weather[0].description);
+  //emojiFirstElement.setAttribute(
+  //`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  //);
 }
-
 function searchCity() {
   let cityName = document.querySelector("#search-text-input").value;
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
@@ -143,7 +150,6 @@ function searchCity() {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
 }
-
 function tempDay() {
   let cityName = document.querySelector("#search-text-input").value;
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
