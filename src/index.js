@@ -79,9 +79,6 @@ function dayHour(now) {
 function showCity(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-text-input");
-  //console.log(searchInput.value);
-  //let city = document.querySelector("#city");
-  //city.innerHTML = `${searchInput.value}` + dayHour(now);
   searchCity(city);
 }
 
@@ -112,28 +109,87 @@ let emojiFirstElement = document.querySelector("#emojiFirst");
 function showTemperature(response) {
   document.querySelector("#city").innerHTML =
     `${response.data.name}` + dayHour(now);
-  document.querySelector("#celsius").innerHTML = `${Math.round(
-    response.data.main.temp
-  )}`;
+
+  let celsius = document.querySelector("#celsius");
+  celsius.innerHTML = `${Math.round(response.data.main.temp)}Cº`;
+  let celciusValue = Math.round(response.data.main.temp);
+  console.log(celciusValue);
+
   document.querySelector("#tempMax").innerHTML = `H ${Math.round(
     response.data.main.temp_max
   )}º `;
+  let celciusMax = Math.round(response.data.main.temp_max);
+  console.log(celciusMax);
+
   document.querySelector("#tempMin").innerHTML = `L ${Math.round(
     response.data.main.temp_min
   )}º `;
-  document.querySelector("#description").innerHTML =
-    `${response.data.weather[0].main} |`.toLowerCase();
-  document.querySelector("#wind").innerHTML = ` w ${Math.round(
-    response.data.wind.speed
-  )}km/hr |`;
-  document.querySelector("#humidity").innerHTML = ` humidity ${Math.round(
-    response.data.main.humidity
-  )}%`;
+  let celciusMin = Math.round(response.data.main.temp_min);
+  console.log(celciusMin);
+
   document.querySelector(
     "#realFeel"
   ).innerHTML = `real feel like : ${Math.round(
     response.data.main.feels_like
   )}Cº`;
+  let celciusRealFeel = Math.round(response.data.main.feels_like);
+  console.log(celciusRealFeel);
+
+  document.querySelector("#description").innerHTML =
+    `${response.data.weather[0].main} |`.toLowerCase();
+
+  document.querySelector("#wind").innerHTML = ` w ${Math.round(
+    response.data.wind.speed
+  )}km/hr |`;
+
+  document.querySelector("#humidity").innerHTML = ` humidity ${Math.round(
+    response.data.main.humidity
+  )}%`;
+
+  function farnheiteToCelsius(event) {
+    event.preventDefault();
+
+    let celsius = document.querySelector("#celsius");
+    celsius.innerHTML = `${Math.round(response.data.main.temp * 9) / 5 + 32}ºF`;
+
+    document.querySelector("#tempMax").innerHTML = `H ${
+      Math.round(response.data.main.temp_max * 9) / 5 + 32
+    }º `;
+
+    document.querySelector("#tempMin").innerHTML = `L ${
+      Math.round(response.data.main.temp_min * 9) / 5 + 32
+    }º `;
+
+    document.querySelector("#realFeel").innerHTML = `real feel like : ${
+      Math.round(response.data.main.feels_like * 9) / 5 + 32
+    }ºF`;
+  }
+  let fToC = document.querySelector("#fToC");
+  fToC.addEventListener("click", farnheiteToCelsius);
+
+  function celsiusToFarnheite(event) {
+    event.preventDefault();
+
+    let celsiusC = document.querySelector("#celsius");
+    celsiusC.innerHTML = `${Math.round(response.data.main.temp)}Cº`;
+
+    document.querySelector("#tempMax").innerHTML = `H ${Math.round(
+      response.data.main.temp_max
+    )}º `;
+
+    document.querySelector("#tempMin").innerHTML = `L ${Math.round(
+      response.data.main.temp_min
+    )}º `;
+
+    document.querySelector(
+      "#realFeel"
+    ).innerHTML = `real feel like : ${Math.round(
+      response.data.main.feels_like
+    )}Cº`;
+  }
+  let cToF = document.querySelector("#cToF");
+  cToF.addEventListener("click", celsiusToFarnheite);
+
   emojiFirstElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
@@ -143,6 +199,13 @@ function showTemperature(response) {
   //`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   //);
 }
+function search() {
+  let apiKey = "677571ea5aaed640ed5d7529e96208c2";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=lisbon&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(showTemperature);
+}
+search();
 function searchCity() {
   let cityName = document.querySelector("#search-text-input").value;
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
@@ -150,52 +213,18 @@ function searchCity() {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
 }
-function tempDay() {
-  let cityName = document.querySelector("#search-text-input").value;
-  let apiKey = "677571ea5aaed640ed5d7529e96208c2";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast/hourly?q=${cityName}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(showTemperature);
-}
 
-function tempWeek() {
-  let cityName = document.querySelector("#search-text-input").value;
-  let apiKey = "677571ea5aaed640ed5d7529e96208c2";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${cityName}&cnt=${6}&appid=${apiKey}`;
-  axios.get(apiUrl).then(showTemperature);
-}
+//function celsiusToFahrenheit(event, response) {
+//event.preventDefault();
+//let celsiusElement = document.querySelector("#celsius");
+//let celsius = celsiusElement.innerHTML;
+//celsius = `${Math.round(response.data.main.temp)}`;
 
-function fahrenheitToCelsius(event) {
-  event.preventDefault();
-  let celsiusElement = document.querySelector("#celsius");
-  let celsius = celsiusElement.innerHTML;
-  celsius = Number(celsius);
-  celsiusElement.innerHTML = `${Math.round((celsius * 9) / 5 + 32)}`;
-  //celsius.innerHTML = `66ºF`;
-  let degree = document.querySelector("#degree");
-  degree.innerHTML = `ºF`;
-  let realFeel = document.querySelector("#realFeel");
-  realFeel.innerHTML = `real feel like ${Math.round((celsius * 9) / 5 + 32)}ºF`;
-  //return celsius;
-}
-//console.log(celsius);
+//let realFeel = document.querySelector("#realFeel");
+//realFeel.innerHTML = `real feel like : ${Math.round(
+// response.data.main.feels_like
+// )}Cº`;
+//}
 
-let fToC = document.querySelector("#fToC");
-fToC.addEventListener("click", fahrenheitToCelsius);
-
-function celsiusToFahrenheit(event) {
-  event.preventDefault();
-  let celsiusElement = document.querySelector("#celsius");
-  let celsius = celsiusElement.innerHTML;
-  celsius = 19;
-  celsiusElement.innerHTML = `19`;
-
-  let degree = document.querySelector("#degree");
-  degree.innerHTML = `Cº`;
-  let realFeel = document.querySelector("#realFeel");
-  realFeel.innerHTML = `real feel like 19Cº`;
-}
-
-let cToF = document.querySelector("#cToF");
-cToF.addEventListener("click", celsiusToFahrenheit);
+//let cToF = document.querySelector("#cToF");
+//cToF.addEventListener("click", celsiusToFahrenheit);
