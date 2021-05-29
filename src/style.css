@@ -64,6 +64,7 @@ button#currentHome {
   margin-top: -10px;
   margin-right: 7px;
   color: #a480aa;
+  cursor: default;
 }
 button#fToC {
   border: none;
@@ -72,6 +73,7 @@ button#fToC {
   margin-right: 3px;
   padding: 0px 0px 0px 0px;
   color: #a480aa;
+  cursor: default;
 }
 button#cToF {
   border: none;
@@ -80,6 +82,7 @@ button#cToF {
   margin-right: -8px;
   padding: 0px 5px 0px 0px;
   color: #a480aa;
+  cursor: default;
 }
 .feel {
   list-style: none;

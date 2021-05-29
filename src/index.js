@@ -195,9 +195,6 @@ function showTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   emojiFirstElement.setAttribute("alt", response.data.weather[0].description);
-  //emojiFirstElement.setAttribute(
-  //`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  //);
 }
 function search() {
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
