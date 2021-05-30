@@ -1,30 +1,3 @@
-//let weather = {
-// paris: {
-// temperature: 19.7,
-// humidity: 80,
-//},
-// tokyo: {
-//temperature: 17.3,
-//humidity: 50,
-// },
-//lisbon: {
-// temperature: 30.2,
-// humidity: 20,
-// },
-//"san francisco": {
-//  temperature: 20.9,
-//  humidity: 100,
-// },
-// moscow: {
-// temperature: -5,
-// humidity: 20,
-//},
-//};
-
-//let city = prompt("Please enter a city : Paris, Tokyo, Lisbon, San Francisco or Moscow.");
-
-//alert(`It is currently ${celsiusTemperature}ºC (${fahrenheitTemperature}ºF) in ${city} with a humidity of ${humidity}%.`);} else {alert(`Sorry, we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`)}
-
 let now = new Date();
 console.log(now);
 
@@ -65,46 +38,9 @@ function dayHour(now) {
   let day = days[now.getDay()];
   let month = months[now.getMonth()];
 
-  //city = city.toLocaleLowerCase();
-  //if (weather[city] !== undefined) {
-  // let temperature = weather[city].temp;
-  // let humidity = weather[city].humidity;
-  // let celsiusTemperature = Math.round(temperature);
-  // let fahrenheitTemperature = Math.round((temperature * 9) / 5 + 32);
-
   let clock = `, ${day}, ${date} ${month}, ${hours}:${minutes}`;
   return clock;
 }
-
-function showCity(event) {
-  event.preventDefault();
-  let searchInput = document.querySelector("#search-text-input");
-  searchCity(city);
-}
-
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", showCity);
-
-let button = document.querySelector("button");
-button.addEventListener("click", showCity);
-
-function currentHome(position) {
-  let apiKey = "677571ea5aaed640ed5d7529e96208c2";
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-  let homeUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-  axios.get(homeUrl).then(showTemperature);
-}
-
-function getCurrentHome(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(currentHome);
-}
-
-let buttonCurrentHome = document.querySelector("#currentHome");
-buttonCurrentHome.addEventListener("click", getCurrentHome);
-
-let emojiFirstElement = document.querySelector("#emojiFirst");
 
 function showTemperature(response) {
   document.querySelector("#city").innerHTML =
@@ -164,8 +100,6 @@ function showTemperature(response) {
       Math.round(response.data.main.feels_like * 9) / 5 + 32
     }ºF`;
   }
-  let fToC = document.querySelector("#fToC");
-  fToC.addEventListener("click", farnheiteToCelsius);
 
   function celsiusToFarnheite(event) {
     event.preventDefault();
@@ -187,22 +121,47 @@ function showTemperature(response) {
       response.data.main.feels_like
     )}Cº`;
   }
-  let cToF = document.querySelector("#cToF");
-  cToF.addEventListener("click", celsiusToFarnheite);
 
+  let emojiFirstElement = document.querySelector("#emojiFirst");
   emojiFirstElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   emojiFirstElement.setAttribute("alt", response.data.weather[0].description);
+
+  let fToC = document.querySelector("#fToC");
+  fToC.addEventListener("click", farnheiteToCelsius);
+
+  let cToF = document.querySelector("#cToF");
+  cToF.addEventListener("click", celsiusToFarnheite);
 }
+
+function showCity(event) {
+  event.preventDefault();
+  let searchInput = document.querySelector("#search-text-input");
+  searchCity(city);
+}
+
+function currentHome(position) {
+  let apiKey = "677571ea5aaed640ed5d7529e96208c2";
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let homeUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  axios.get(homeUrl).then(showTemperature);
+}
+
+function getCurrentHome(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(currentHome);
+}
+
 function search() {
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
   let units = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=lisbon&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
 }
-search();
+
 function searchCity() {
   let cityName = document.querySelector("#search-text-input").value;
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
@@ -211,17 +170,15 @@ function searchCity() {
   axios.get(apiUrl).then(showTemperature);
 }
 
-//function celsiusToFahrenheit(event, response) {
-//event.preventDefault();
-//let celsiusElement = document.querySelector("#celsius");
-//let celsius = celsiusElement.innerHTML;
-//celsius = `${Math.round(response.data.main.temp)}`;
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", showCity);
 
-//let realFeel = document.querySelector("#realFeel");
-//realFeel.innerHTML = `real feel like : ${Math.round(
-// response.data.main.feels_like
-// )}Cº`;
-//}
+let button = document.querySelector("button");
+button.addEventListener("click", showCity);
 
-//let cToF = document.querySelector("#cToF");
-//cToF.addEventListener("click", celsiusToFahrenheit);
+let buttonCurrentHome = document.querySelector("#currentHome");
+buttonCurrentHome.addEventListener("click", getCurrentHome);
+
+let emojiFirstElement = document.querySelector("#emojiFirst");
+
+search();
