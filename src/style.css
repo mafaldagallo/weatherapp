@@ -111,12 +111,22 @@ li#emojiFirst {
   margin-top: 50px;
   margin-left: 0px;
 }
-.day {
-  letter-spacing: -1px;
-  margin: 0 auto;
+ul#forecast.hour {
+  text-align: center;
+  margin-left: -8px;
 }
+li.day {
+  letter-spacing: -1px;
+}
+strong.max {
+  margin-top: -10px;
+  font-size: 13px;
+  margin-left: 10px;
+}
+
 .min {
   margin-top: -10px;
   font-size: 13px;
   font-weight: lighter;
+  margin-left: 10px;
 }

@@ -42,6 +42,40 @@ function dayHour(now) {
   return clock;
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = [
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+  ];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+          <ul class="hour">
+            <h4>
+              <li class="day">${day}</li>
+              <img src="" alt="" id="emojiFirst" />
+              <li><strong class="max">19º</strong></li>
+              <li class="min">13º</li>
+            </h4>
+          </ul>
+        </div>
+        `;
+  });
+  forecastHMTL = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+displayForecast();
+
 function showTemperature(response) {
   document.querySelector("#city").innerHTML =
     `${response.data.name}` + dayHour(now);
