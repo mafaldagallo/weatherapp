@@ -42,10 +42,42 @@ function dayHour(now) {
   return clock;
 }
 
-function displayForecast(response) {
-  console.log(response.data.daily);
-  let forecastElement = document.querySelector("#forecast");
+function formatHour(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let hour = date.getHours();
+  let hours = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+  ];
 
+  return hours[hour];
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
   let days = [
     "sunday",
     "monday",
@@ -56,26 +88,82 @@ function displayForecast(response) {
     "saturday",
   ];
 
-  let forecastHTML = `<div class="row">`;
+  return days[day];
+}
 
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
-          <ul class="hour">
-            <h4>
-              <li class="day">${day}</li>
-              <img src="" alt="" id="emojiFirst" />
-              <li><strong class="max">19º</strong></li>
-              <li class="min">13º</li>
+function displayHourlyForecast(response) {
+  let hourlyForecast = response.data.hourly;
+  console.log(response.data);
+
+  let hourlyForecastElement = document.querySelector("#hourlyForecast");
+
+  let hourlyForecastHTML = `<div class="row">`;
+
+  hourlyForecast.forEach(function (hourlyForecastDay, index) {
+    if (index < 5) {
+      hourlyForecastHTML =
+        hourlyForecastHTML +
+        `<div class="col-2">
+          <ul>
+            <h4 class="hour">
+              <li class="hour">${formatHour(hourlyForecastDay.dt)}</li>
+              <img src="http://openweathermap.org/img/wn/${
+                hourlyForecastDay.weather[0].icon
+              }@2x.png" alt="${
+          hourlyForecastDay.weather[0].description
+        }" id="emoji" />
+             <span class="tempDegree">
+              <li><strong class="max">${
+                Math.round(hourlyForecastDay.temp) / 10
+              }º</strong></li>
+              <span/>
             </h4>
           </ul>
         </div>
         `;
+    }
+  });
+  hourlyForecastHTML = hourlyForecastHTML + `</div>`;
+  hourlyForecastElement.innerHTML = hourlyForecastHTML;
+  console.log(hourlyForecastHTML);
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
+          <ul>
+            <h4 class="day">
+              <li class="day">${formatDay(forecastDay.dt)}</li>
+              <img src="http://openweathermap.org/img/wn/${
+                forecastDay.weather[0].icon
+              }@2x.png" alt="${
+          forecastDay.weather[0].description
+        }" id="emoji" />
+             <span class="tempDegree">
+              <li><strong class="max">${
+                Math.round(forecastDay.temp.max) / 10
+              }º</strong></li>
+              <li><span class="min">${
+                Math.round(forecastDay.temp.min) / 10
+              }º<span/></li>
+              <span/>
+            </h4>
+          </ul>
+        </div>
+        `;
+    }
   });
   forecastHMTL = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
 
 function getForecast(coordinates) {
@@ -84,6 +172,7 @@ function getForecast(coordinates) {
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayHourlyForecast);
 }
 
 function showTemperature(response) {
