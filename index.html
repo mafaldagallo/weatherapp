@@ -19,7 +19,7 @@
     <div class="container">
       <div class="search">
         <div class="row">
-          <div class="col-6">
+          <div class="col-2">
             <form id="search-form">
               <input
                 type="text"
@@ -31,7 +31,7 @@
               />
             </form>
           </div>
-          <div class="col-6">
+          <div class="col-2">
             <span class="buttonGo">
               <button type="submit" class="btn btn-secondary">go</button>
             </span>
@@ -39,21 +39,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
-          <h5 id="city">lisbon, sunday, 9 may, 16:19</h5>
-        </div>
-        <div class="col-6" id="farnheite">
-          <button id="currentHome">
-            <h5 id="home">current location</h5>
-          </button>
-          <button id="cToF"><h5 id="cC">Cº</h5></button>
-          <button id="fToC"><h5 id="fF">ºF</h5></button>
+        <div class="col-2" id="locationDate">
+            <h5><span id="city">lisbon, sunday, 9 may, 16:19</span></h5>
+            </div>
+            <div class="col-2" id="currentLocation">
+            <h5><button id="currentHome">current location</button><button id="cToF">Cº | </button><button id="fToC">ºF</button></h5>
+          </h5>
         </div>
       </div>
       <br />
       <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-2">
           <ul class="feel">
             <li>
               <h1><span id="celsius"></span><span id="degree"></span></h1>
@@ -63,7 +59,7 @@
                 <strong>
                   <span id="tempMax">H 19º </span
                   ><span id="tempMin">L 11º </span></strong
-                ><strong id="realFeel"> real feel like : 14Cº</strong>
+                ><strong id="realFeel">  feels like : 14Cº</strong>
                 <li class="attributes">
                   <span id="description">mostly cloudy | </span
                   ><span id="wind">w 8km/hr | </span

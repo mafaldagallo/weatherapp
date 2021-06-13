@@ -42,6 +42,22 @@ function dayHour(now) {
   return clock;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ];
+
+  return days[day];
+}
+
 function formatHour(timestamp) {
   let date = new Date(timestamp * 1000);
   let hour = date.getHours();
@@ -113,9 +129,9 @@ function displayHourlyForecast(response) {
           hourlyForecastDay.weather[0].description
         }" id="emoji" />
              <span class="tempDegree">
-              <li><strong class="max">${
-                Math.round(hourlyForecastDay.temp) / 10
-              }º</strong></li>
+              <li><strong class="max">${Math.round(
+                hourlyForecastDay.temp
+              )}º</strong></li>
               <span/>
             </h4>
           </ul>
@@ -125,7 +141,6 @@ function displayHourlyForecast(response) {
   });
   hourlyForecastHTML = hourlyForecastHTML + `</div>`;
   hourlyForecastElement.innerHTML = hourlyForecastHTML;
-  console.log(hourlyForecastHTML);
 }
 
 function displayForecast(response) {
@@ -149,12 +164,11 @@ function displayForecast(response) {
           forecastDay.weather[0].description
         }" id="emoji" />
              <span class="tempDegree">
-              <li><strong class="max">${
-                Math.round(forecastDay.temp.max) / 10
-              }º</strong></li>
-              <li><span class="min">${
-                Math.round(forecastDay.temp.min) / 10
-              }º<span/></li>
+              <li><strong class="max">${Math.round(
+                forecastDay.temp.max
+              )}º</strong><span class="min"> | ${Math.round(
+          forecastDay.temp.min
+        )}º<span/></li>
               <span/>
             </h4>
           </ul>
@@ -164,15 +178,6 @@ function displayForecast(response) {
   });
   forecastHMTL = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-}
-
-function getForecast(coordinates) {
-  console.log(coordinates);
-
-  let apiKey = "677571ea5aaed640ed5d7529e96208c2";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayForecast);
-  axios.get(apiUrl).then(displayHourlyForecast);
 }
 
 function showTemperature(response) {
@@ -196,9 +201,7 @@ function showTemperature(response) {
   let celciusMin = Math.round(response.data.main.temp_min);
   console.log(celciusMin);
 
-  document.querySelector(
-    "#realFeel"
-  ).innerHTML = `real feel like : ${Math.round(
+  document.querySelector("#realFeel").innerHTML = ` feels like : ${Math.round(
     response.data.main.feels_like
   )}Cº`;
   let celciusRealFeel = Math.round(response.data.main.feels_like);
@@ -229,7 +232,7 @@ function showTemperature(response) {
       Math.round(response.data.main.temp_min * 9) / 5 + 32
     }º `;
 
-    document.querySelector("#realFeel").innerHTML = `real feel like : ${
+    document.querySelector("#realFeel").innerHTML = ` feels like : ${
       Math.round(response.data.main.feels_like * 9) / 5 + 32
     }ºF`;
   }
@@ -248,9 +251,7 @@ function showTemperature(response) {
       response.data.main.temp_min
     )}º `;
 
-    document.querySelector(
-      "#realFeel"
-    ).innerHTML = `real feel like : ${Math.round(
+    document.querySelector("#realFeel").innerHTML = ` feels like : ${Math.round(
       response.data.main.feels_like
     )}Cº`;
   }
@@ -279,9 +280,10 @@ function showCity(event) {
 
 function currentHome(position) {
   let apiKey = "677571ea5aaed640ed5d7529e96208c2";
+  let units = "metric";
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  let homeUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  let homeUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
   axios.get(homeUrl).then(showTemperature);
 }
 
@@ -303,6 +305,15 @@ function searchCity() {
   let units = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "677571ea5aaed640ed5d7529e96208c2";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayHourlyForecast);
 }
 
 let searchForm = document.querySelector("#search-form");

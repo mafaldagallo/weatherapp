@@ -16,17 +16,20 @@ h4 {
 }
 h1 {
   font-size: 80px;
-  color: #a480aa;
+  color: #e96e4f;
 }
 h6 {
+  text-align: left;
   font-size: 11px;
   margin-top: -15px;
-  text-align: center;
+  margin-left: -10px;
 }
 hr {
   line-height: 1px;
   margin: 1px;
   opacity: 0.05;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 ul {
   margin: 0px;
@@ -39,7 +42,7 @@ a {
 .container {
   border: 1px solid rgb(197, 197, 197);
   width: 500px;
-  height: 450px;
+  height: 470px;
   padding: 15px 15px 5px 15px;
   background-color: #fdfdfd;
   border-radius: 5px;
@@ -57,70 +60,14 @@ a {
 }
 .btn-secondary {
   font-size: 15px;
-  padding: 1px 20px 1px 90px;
+  padding: 0px 20px 0px 90px;
   border-radius: 1px;
-}
-
-button#currentHome {
-  border: none;
-  background-color: #fdfdfd;
-  margin-top: -10px;
-  margin-right: -5px;
-  color: #a480aa;
-  cursor: default;
-}
-button#fToC {
-  border: none;
-  background-color: #fdfdfd;
-  margin-top: -10px;
-  margin-right: 3px;
-  padding: 0px 0px 0px 0px;
-  color: #e96e4f;
-  cursor: default;
-}
-button#cToF {
-  border: none;
-  background-color: #fdfdfd;
-  margin-top: -10px;
-  margin-right: -8px;
-  padding: 0px 5px 0px 0px;
-  color: #a480aa;
-  cursor: default;
-}
-div#farnheite.col-6 {
-  text-align: right;
-  padding: 0px 10px 0px 0px;
-  margin-right: 0px;
-  margin-top: -10px;
+  background-color: rgb(72, 72, 74);
 }
 .feel {
   list-style: none;
-  text-align: center;
-  margin-left: -200px;
-  margin-right: -70px;
-}
-strong#realFeel {
-  color: #a480aa;
-}
-
-li.day {
-  list-style: none;
-  display: block;
-  text-align: center;
-  letter-spacing: -1px;
-}
-li.hour {
-  list-style: none;
-  display: block;
-  text-align: center;
-  letter-spacing: -1px;
-}
-img#emoji {
-  display: block;
-  text-align: center;
-  margin: 0px auto;
-
-  height: 50px;
+  text-align: right;
+  margin-left: -25px;
 }
 .tempDegree {
   list-style: none;
@@ -128,15 +75,6 @@ img#emoji {
   text-align: center;
   margin: 0px auto;
   line-height: 15px;
-}
-strong.max {
-  font-size: 13px;
-  text-align: center;
-  margin: 0px auto;
-}
-span.min {
-  font-size: 13px;
-  font-weight: lighter;
 }
 .col-2 {
   width: auto;
@@ -148,4 +86,82 @@ div.col-2 {
 div.row {
   margin: auto;
   padding: 0px 0px;
+}
+li.hour {
+  list-style: none;
+  display: block;
+  text-align: center;
+  letter-spacing: -1px;
+}
+li.attributes {
+  text-align: left;
+}
+li.day {
+  list-style: none;
+  display: block;
+  text-align: center;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+strong.max {
+  font-size: 13px;
+  text-align: center;
+  margin: 0px auto;
+}
+span.min {
+  font-size: 13px;
+  font-weight: lighter;
+}
+strong#realFeel {
+  color: #e96e4f;
+}
+div#locationDate.col-2 {
+  text-align: left;
+  margin-left: 10px;
+}
+div#currentLocation.col-2 {
+  text-align: right;
+  margin: 0px;
+  margin-right: 10px;
+}
+span#celsius {
+  text-align: left;
+  margin-left: -20px;
+  color: #e96e4f;
+}
+button#currentHome {
+  border: none;
+  background-color: #fdfdfd;
+  margin-top: -10px;
+  color: #e96e4f;
+  cursor: default;
+  margin-right: 10px;
+}
+button#cToF {
+  border: none;
+  background-color: #fdfdfd;
+  margin-top: -10px;
+  margin-right: 3px;
+  padding: 0px 0px 0px 0px;
+  color: #e96e4f;
+  cursor: default;
+}
+button#fToC {
+  border: none;
+  background-color: #fdfdfd;
+  margin-top: -10px;
+  padding: 0px 0px 0px 0px;
+  color: #e96e4f;
+  cursor: default;
+}
+img#emojiFirst {
+  display: block;
+  text-align: center;
+  height: 110px;
+}
+img#emoji {
+  display: block;
+  text-align: center;
+  margin: 0px auto;
+  height: 50px;
 }
